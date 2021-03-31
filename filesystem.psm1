@@ -11,9 +11,18 @@ function initialize-emptyDirectory {
    )
 
    if (test-path $directoryName) {
-      remove-item -recurse -force $directoryName
+      try {
+       #
+       # Try to remove directory.
+       # Use -errorAction stop so that catch block
+       # is executed if unsuccessful
+       #
+         remove-item -recurse -force -errorAction stop $directoryName
+      }
+      catch {
+         return $null
+      }
    }
 
    new-item $directoryName -type directory
-
 }
