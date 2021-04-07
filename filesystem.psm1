@@ -23,7 +23,7 @@ function initialize-emptyDirectory {
 
    if (test-path $directoryName) {
       try {
-       # 
+       #
        # Try to remove directory.
        # Use -errorAction stop so that catch block
        # is executed if unsuccessful
@@ -59,4 +59,34 @@ function resolve-relativePath {
    $ok = [tq84.filesystem]::PathRelativePathTo($relPath, $dir, [System.IO.FileAttributes]::Directory, $dest, [System.IO.FileAttributes]::Normal)
    return $relPath.ToString()
 
+}
+function write-file {
+ #
+ # write-file C:\users\rny\test\more\test\test\test.txt "one`ntwo`nthree"
+ # write-file ./foo/bar/baz/utf8.txt      "Bärlauch"
+ # write-file ./foo/bar/baz/win-1252.txt  "Bärlauch`nLiberté, Fraternité, Kamillentee"  ( [System.Text.Encoding]::GetEncoding(1252) )
+ #
+   param (
+      [parameter (mandatory=$true)]
+      [string] $file,
+
+      [parameter (mandatory=$true)]
+      [string] $content,
+
+      [parameter (mandatory=$false)]
+      [System.Text.Encoding] $enc = [System.Text.UTF8Encoding]::new($false) # UTF8 without BOM
+   )
+
+   $abs_path = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($file)
+   $abs_dir  = $ExecutionContext.SessionState.Path.ParseParent($abs_path, $null)
+
+   if (! (test-path $abs_dir)) {
+      $null = mkdir $abs_dir
+   }
+
+   if (test-path $abs_path) {
+      remove-item $abs_path
+   }
+
+   [System.IO.File]::WriteAllText($abs_path, $content, $enc)
 }

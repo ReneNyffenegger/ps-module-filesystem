@@ -1,8 +1,9 @@
 @{
    RootModule        = 'filesystem.psm1'
-   ModuleVersion     = '0.0.3'
+   ModuleVersion     = '0.0.4'
    FunctionsToExport = @(
      'initialize-emptyDirectory',
-     'resolve-relativePath'
+     'resolve-relativePath',
+     'write-file'
    )
 }
