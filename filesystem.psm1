@@ -52,8 +52,8 @@ function resolve-relativePath {
  #
  # The WinAPI function PathRelativePathTo requires directory separators to be backslashes:
  #
-   $dir  = $dir -replace '/', '\'
-   $dest = $dir -replace '/', '\'
+   $dir  = $dir  -replace '/', '\'
+   $dest = $dest -replace '/', '\'
 
    $relPath = new-object System.Text.StringBuilder 260
    $ok = [tq84.filesystem]::PathRelativePathTo($relPath, $dir, [System.IO.FileAttributes]::Directory, $dest, [System.IO.FileAttributes]::Normal)
