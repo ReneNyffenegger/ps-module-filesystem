@@ -4,10 +4,8 @@ $winApi = add-type -name filesystem -namespace tq84 -passThru -memberDefinition 
   [DllImport("shlwapi.dll", CharSet=CharSet.Auto)]
   public static extern bool PathRelativePathTo(
      [Out] System.Text.StringBuilder pszPath,
-     [In]  string pszFrom,
-     [In]  System.IO.FileAttributes dwAttrFrom,
-     [In]  string pszTo,
-     [In]  System.IO.FileAttributes dwAttrTo
+     [In ] string pszFrom, [In ] System.IO.FileAttributes  dwAttrFrom,
+     [In ] string pszTo  , [In ] System.IO.FileAttributes  dwAttrTo
 );
 '
 function initialize-emptyDirectory {
@@ -45,8 +43,14 @@ function resolve-relativePath {
  # resolve-relativepath .\dir\subdir .\dir\another\sub\dir\file.txt
  #
    param (
-      $dir,
-      $dest
+      [parameter (
+          mandatory        = $true
+       )][string                        ]  $dir  ,
+
+
+      [parameter (
+          mandatory        = $true
+       )][string                       ]  $dest
    )
 
  #
