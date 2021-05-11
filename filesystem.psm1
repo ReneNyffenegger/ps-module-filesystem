@@ -50,7 +50,7 @@ function resolve-relativePath {
 
       [parameter (
           mandatory        = $true
-       )][string                       ]  $dest
+       )][string[]                     ]  $dest
    )
 
  #
@@ -60,10 +60,18 @@ function resolve-relativePath {
    $dest = $dest -replace '/', '\'
 
    $relPath = new-object System.Text.StringBuilder 260
-   $ok = [tq84.filesystem]::PathRelativePathTo($relPath, $dir, [System.IO.FileAttributes]::Directory, $dest, [System.IO.FileAttributes]::Normal)
-   return $relPath.ToString()
 
+   [string[]] $ret = @()
+
+   foreach ($dest_ in $dest) {
+     $ok = [tq84.filesystem]::PathRelativePathTo($relPath, $dir, [System.IO.FileAttributes]::Directory, $dest_ [System.IO.FileAttributes]::Normal)
+     $ret += $relPath.ToString()
+
+   }
+
+   return $ret
 }
+
 function write-file {
  #
  # write-file C:\users\rny\test\more\test\test\test.txt "one`ntwo`nthree"
