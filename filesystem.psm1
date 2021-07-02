@@ -64,9 +64,8 @@ function resolve-relativePath {
    [string[]] $ret = @()
 
    foreach ($dest_ in $dest) {
-     $ok = [tq84.filesystem]::PathRelativePathTo($relPath, $dir, [System.IO.FileAttributes]::Directory, $dest_ [System.IO.FileAttributes]::Normal)
-     $ret += $relPath.ToString()
-
+      $ok = [tq84.filesystem]::PathRelativePathTo($relPath, $dir, [System.IO.FileAttributes]::Directory, $dest_, [System.IO.FileAttributes]::Normal)
+      $ret += $relPath.ToString()
    }
 
    return $ret
