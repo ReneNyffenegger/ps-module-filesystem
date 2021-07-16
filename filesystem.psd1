@@ -1,10 +1,11 @@
 @{
    RootModule        = 'filesystem.psm1'
-   ModuleVersion     = '0.7'
+   ModuleVersion     = '0.8'
    FunctionsToExport = @(
      'initialize-emptyDirectory',
      'resolve-relativePath',
      'write-file',
-     'test-fileLock'
+     'test-fileLock',
+     'get-openFileProcessId'
    )
 }
