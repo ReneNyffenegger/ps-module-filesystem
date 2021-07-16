@@ -101,3 +101,37 @@ function write-file {
 
    [System.IO.File]::WriteAllText($abs_path, $content, $enc)
 }
+
+function test-fileLock {
+  #
+  # Inspired by
+  #
+  # http://mspowershell.blogspot.com/2008/07/locked-file-detection.html
+  #
+  # Attempts to open a file and trap the resulting error if the file is already open/locked
+
+    param (
+       [parameter (mandatory=$true)]
+       [string]$filePath
+    )
+
+    if (! (test-path $filePath) ) {
+       return $null
+    }
+
+    $filelocked = $false
+    $fileInfo = new-object System.IO.FileInfo $filePath
+
+    trap {
+        set-variable -name filelocked -value $true -scope 1
+      # $fileLocked = $true
+        continue
+    }
+
+    $fileStream = $fileInfo.Open( [System.IO.FileMode]::OpenOrCreate,[System.IO.FileAccess]::ReadWrite, [System.IO.FileShare]::None )
+    if ($fileStream) {
+        $fileStream.Close()
+    }
+
+    $fileLocked
+}
