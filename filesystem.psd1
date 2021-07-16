@@ -6,6 +6,6 @@
      'resolve-relativePath',
      'write-file',
      'test-fileLock',
-     'get-openFileProcessId'
+     'get-openFileProcess'
    )
 }

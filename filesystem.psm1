@@ -136,7 +136,7 @@ function test-fileLock {
     $fileLocked
 }
 
-function get-openFileProcessId {
+function get-openFileProcess {
  #
  # Copied and adapted from
  #   https://github.com/pldmgg/misc-powershell/blob/master/MyFunctions/PowerShellCore_Compatible/Get-FileLockProcess.ps1
@@ -231,7 +231,7 @@ function get-openFileProcessId {
           // http://msdn.microsoft.com/en-us/library/windows/desktop/aa373661(v=vs.85).aspx
           // https://github.com/wyday/wyupdate/blob/main/frmFilesInUse.cs
           //
-             static public List<Process> GetOpenFileProcessId(string path) {
+             static public List<Process> GetOpenFileProcess(string path) {
                 uint handle;
                 string key = Guid.NewGuid().ToString();
                 List<Process> processes = new List<Process>();
@@ -295,7 +295,7 @@ function get-openFileProcessId {
 
      add-type -typeDef  $csSrc
 
-     return [tq84.rstrtmgr]::GetOpenFileProcessId($filePath)
+     return [tq84.rstrtmgr]::GetOpenFileProcess($filePath)
 
 <# TODO: LINUX
 
