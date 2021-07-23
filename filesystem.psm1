@@ -324,3 +324,6 @@ function get-openFileProcess {
     $Result
 
 }
+function set-locationDocuments() {
+   set-location ([System.Environment]::GetFolderPath('MyDocuments'))
+}
